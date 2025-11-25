@@ -410,7 +410,7 @@ function showShortcutHint(text, direction) {
 // 初始化播放器
 function initPlayer(videoUrl) {
     if (!videoUrl) {
-        return
+        return;
     }
 
     // 销毁旧实例
