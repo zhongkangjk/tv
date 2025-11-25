@@ -285,6 +285,17 @@ function initializePageContent() {
 function handleKeyboardShortcuts(e) {
     // 忽略输入框中的按键事件
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    
+    // 小键盘数字键3切换3倍速
+    if (e.key === '3' || (e.key === '3' && e.location === 3)) {
+        if (art && art.video) {
+            const currentRate = art.video.playbackRate;
+            const newRate = currentRate === 3.0 ? 1.0 : 3.0;
+            art.video.playbackRate = newRate;
+            showShortcutHint(newRate === 3.0 ? '三倍速' : '正常速度', 'play');
+            e.preventDefault();
+        }
+    }
 
     // Alt + 左箭头 = 上一集
     if (e.altKey && e.key === 'ArrowLeft') {
@@ -454,7 +465,7 @@ function initPlayer(videoUrl) {
         setting: true,
         loop: false,
         flip: false,
-        playbackRate: true,
+        playbackRate: [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0],
         aspectRatio: false,
         fullscreen: true,
         fullscreenWeb: true,
